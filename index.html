@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Weather Prediction App v2.0 - Detailed meteorological predictions based on atmospheric parameters">
+    <meta name="author" content="Weather Prediction App">
+    <meta name="version" content="2.0">
+    <title>Predicción Meteorológica v2.0</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-header">
+        <div class="language-selector">
+            <button id="es-btn" class="lang-btn active">Español</button>
+            <button id="en-btn" class="lang-btn">English</button>
+        </div>
+    </div>
+    
+    <div class="form-container">
+        <h1 id="title">Predicción Meteorológica</h1>
+        <form id="weatherForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="cape">CAPE (J/kg):</label>
+                    <input type="number" id="cape" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Convective Available Potential Energy - Measures atmospheric instability</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="cin">CIN (J/kg):</label>
+                    <input type="number" id="cin" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Convective Inhibition - Measures resistance to thunderstorm development</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="wind">Velocidad del Viento (km/h):</label>
+                    <input type="number" id="wind" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Surface wind speed - Important for storm development and movement</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="temp">Temperatura (°C):</label>
+                    <input type="number" id="temp" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Surface temperature - Key factor in atmospheric stability</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="dewpoint">Punto de Rocío (°C):</label>
+                    <input type="number" id="dewpoint" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Temperature at which air becomes saturated - Indicator of moisture content</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="humidity">Humedad (%):</label>
+                    <input type="number" id="humidity" min="0" max="100" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Relative humidity - Percentage of moisture in the air</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="thetae">Theta-e (K):</label>
+                    <input type="number" id="thetae" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Equivalent potential temperature - Measure of moist static energy in the atmosphere</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="pwat">PWAT (IN):</label>
+                    <input type="number" id="pwat" step="0.01" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Precipitable Water - Total atmospheric water vapor in a vertical column</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="lfc">LFC - Level of Free Convection (m):</label>
+                    <input type="number" id="lfc" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Height where a lifted air parcel becomes warmer than the environment and rises freely</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="el">EL - Equilibrium Level (m):</label>
+                    <input type="number" id="el" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Height where a lifted air parcel becomes cooler than the environment and stops rising</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="lcl">LCL Height (m):</label>
+                    <input type="number" id="lcl" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Lifting Condensation Level - Height where a lifted air parcel becomes saturated</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="li">Lifted Index:</label>
+                    <input type="number" id="li" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Measure of atmospheric instability - Negative values indicate instability</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="bulkshear1">Bulk Shear 0-1 km (kt):</label>
+                    <input type="number" id="bulkshear1" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Wind shear in the lowest kilometer - Important for tornado formation</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="bulkshear6">Bulk Shear 0-6 km (kt):</label>
+                    <input type="number" id="bulkshear6" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Deep-layer wind shear - Critical for supercell thunderstorm organization</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="srh1">SRH 0-1 km (m²/s²):</label>
+                    <input type="number" id="srh1" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Storm Relative Helicity in lowest kilometer - Measures potential for rotating updrafts</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="srh3">SRH 0-3 km (m²/s²):</label>
+                    <input type="number" id="srh3" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Storm Relative Helicity in lowest 3 kilometers - Important for mesocyclone development</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="ehi1">Energy Helicity Index 0-1 km:</label>
+                    <input type="number" id="ehi1" step="0.1" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Combines CAPE and SRH - Used to forecast tornado potential</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="ehi3">Energy Helicity Index 0-3 km:</label>
+                    <input type="number" id="ehi3" step="0.1" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Combines CAPE and deep-layer SRH - Indicator of supercell tornado potential</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="lapserate">Lapse Rate 700-500mb (°C/km):</label>
+                    <input type="number" id="lapserate" step="0.1" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Rate of temperature decrease with height - Steeper rates indicate instability</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="wind500">500mb Wind (kt):</label>
+                    <input type="number" id="wind500" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Wind speed at 500 millibars - Indicates mid-level atmospheric flow</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="wind700">700mb Wind (kt):</label>
+                    <input type="number" id="wind700" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Wind speed at 700 millibars - Important for storm steering</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="wind850">850mb Wind (kt):</label>
+                    <input type="number" id="wind850" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Wind speed at 850 millibars - Low-level jet indicator</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="cape03">0-3 km AGL CAPE (J/kg):</label>
+                    <input type="number" id="cape03" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Low-level CAPE - Important for tornado potential</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="meanw">MeanW (g/kg):</label>
+                    <input type="number" id="meanw" step="0.1" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Mean mixing ratio in lowest 100mb - Measure of low-level moisture</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="lowrh">LowRH (%):</label>
+                    <input type="number" id="lowrh" min="0" max="100" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Low-level relative humidity - Important for precipitation potential</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="midrh">MidRH (%):</label>
+                    <input type="number" id="midrh" min="0" max="100" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Mid-level relative humidity - Affects storm development and maintenance</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="downt">DownT (°R):</label>
+                    <input type="number" id="downt" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Downdraft temperature - Related to potential for strong downdrafts</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="kindex">K-Index:</label>
+                    <input type="number" id="kindex" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Measures thunderstorm potential based on temperature lapse rate and moisture</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="tt">Total Totals (TT):</label>
+                    <input type="number" id="tt" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Combines vertical temperature lapse rate and moisture - Thunderstorm potential indicator</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="convt">ConvT:</label>
+                    <input type="number" id="convt" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Convective temperature - Minimum temperature needed for surface-based convection</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="maxt">MaxT:</label>
+                    <input type="number" id="maxt" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Maximum temperature - Highest expected temperature in the forecast period</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="esp">ESP (Tornado Probability):</label>
+                    <input type="number" id="esp" step="0.01" min="0" max="1" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Enhanced Supercell Probability - Likelihood of tornado formation</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="mmp">MMP (Mesoscale Maintenance Parameter):</label>
+                    <input type="number" id="mmp" step="0.01" min="0" max="1" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Mesoscale Maintenance Parameter - Indicates potential for sustained convective systems</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="tei">TEI (Thunder Energy Index):</label>
+                    <input type="number" id="tei" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Thunder Energy Index - Composite measure of thunderstorm potential</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="dcape">DCAPE (J/kg):</label>
+                    <input type="number" id="dcape" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Downdraft CAPE - Potential energy available for downdrafts</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="sigsvr">SigSvr (Significant Severe):</label>
+                    <input type="number" id="sigsvr" required>
+                    <span class="tooltip"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Significant Severe Parameter - Composite indicator for significant severe weather (values >20000 considered severe)</span>
+                    </span>
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="submit">Analizar Condiciones</button>
+                <button type="reset">Limpiar Datos</button>
+            </div>
+        </form>
+    </div>
+    
+    <div id="resultado">
+        <div class="weather-icon">
+            <i class="fas fa-cloud-sun"></i>
+        </div>
+        <h2>Predicción del Tiempo</h2>
+        <div id="prediccion"></div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
